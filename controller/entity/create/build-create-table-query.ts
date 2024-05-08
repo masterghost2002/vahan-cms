@@ -9,7 +9,7 @@ const buildCreateTableQuery = (data:CREATE_TABLE_QUERY_SCHEMA_TYPE)=>{
         let type = field.type;
         if(type === 'char' || type === 'varchar')
             type = `${type}(${field.length?field.length:255})`
-        let to_append = `${field.name} ${type} ${field.is_primary?' PRIMARY KEY':''} ${field.is_unique?'UNIQUE':''} ${field.can_null?'':'NOT NULL'}`
+        let to_append = `${field.name} ${type} ${field.is_primary?' PRIMARY KEY':''} ${field.is_unique?'UNIQUE':''} ${field.can_null?'':'NOT NULL'} ${field.default?field.default:''}`
         if(index !== rows_length-1)
             to_append = to_append + `,\n`;
         else to_append  = to_append+'\n)'

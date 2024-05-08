@@ -17,7 +17,6 @@ export default async function POST(req: Request, res: Response) {
             return res.status(400).json({isError:true, message:'Invalid query data', data:validate.error.errors});
         const queryData = validate.data;
         const query = buildCreateTableQuery(queryData);
-        console.log(query);
         const db = await getDB();
         const result = await db.query(query);
         return res.status(200).json(result);
