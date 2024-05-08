@@ -1,13 +1,11 @@
 {
-  "name": "grouple-backend",
+  "name": "vahan",
   "version": "1.0.0",
   "license": "MIT",
   "main": "server.ts",
   "scripts": {
-    "postinstall": "npx prisma generate",
     "dev": "nodemon",
-    "build": "tsc",
-    "seed": "ts-node prisma/seed.ts"
+    "build": "tsc"
   },
   "dependencies": {
     "cookie-parser": "^1.4.6",
@@ -18,6 +16,7 @@
     "express-rate-limit": "^7.2.0",
     "jsonwebtoken": "^9.0.2",
     "node-cache": "^5.1.2",
+    "pg": "^8.11.5",
     "zod": "^3.23.4"
   },
   "devDependencies": {
@@ -26,6 +25,7 @@
     "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.12.7",
+    "@types/pg": "^8.11.6",
     "nodemon": "^3.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"

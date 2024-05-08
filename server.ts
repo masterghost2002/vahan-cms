@@ -1,9 +1,15 @@
+import dontenv from 'dotenv'
 import { createServer } from 'http';
 import express, { NextFunction, Response, Request } from 'express';
 import rateLimit from 'express-rate-limit';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import path from 'path';
+
+//routers here
+import entityRouter from './router/entity.router';
+dontenv.config();
+//server setup
 const PORT = process.env.PORT || 5000;
 const app = express();
 const httpServer = createServer(app);
@@ -18,6 +24,9 @@ app.use(cors());
 app.use('/api',limit);
 app.use(express.json());
 app.use(cookieParser());
+
+//routes here
+app.use('/api/entity', entityRouter);
 
 // will help to server the web
 app.use((req: Request, res: Response, next: NextFunction) => {
