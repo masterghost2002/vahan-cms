@@ -1,0 +1,23 @@
+version: '3.8'
+networks:
+  vahan-network:
+services:
+  postgres:
+    image: postgres:latest
+    env_file:
+      - .env
+    networks:
+      - vahan-network
+
+  vahan:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "80:5000"
+    networks:
+      - vahan-network
+    depends_on:
+      - postgres
