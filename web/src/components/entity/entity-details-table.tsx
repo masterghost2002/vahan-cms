@@ -10,7 +10,6 @@ export default function EntityDetailsTable({data}:props) {
                     <th className='border border-gray-300 p-2'>Name</th>
                     <th className='border border-gray-300 p-2'>Type</th>
                     <th className='border border-gray-300 p-2'>Primary</th>
-                    <th className='border border-gray-300 p-2'>Max Length</th>
                     <th className='border border-gray-300 p-2'>Is Nullable</th>
                     <th className='border border-gray-300 p-2'>Default Value</th>
                 </tr>
@@ -22,7 +21,6 @@ export default function EntityDetailsTable({data}:props) {
                     <td className="border border-gray-300 p-2 font-[500]">{columndata.column_name}</td>
                     <td className="border border-gray-300 p-2">{columndata.data_type}</td>
                     <td className="border border-gray-300 p-2">{columndata.is_primary_key}</td>
-                    <td className="border border-gray-300 p-2">{columndata.character_maximum_length}</td>
                     <td className="border border-gray-300 p-2">{columndata.is_nullable}</td>
                     <td className="border border-gray-300 p-2">{columndata.column_default}</td>
                 </tr>

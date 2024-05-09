@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '../ui/button';
@@ -22,22 +21,28 @@ import {
 import validateColumnData, { type ColumnDataFormType } from './column-form.validation';
 import { Label } from '../ui/label';
 import dataTypes from '../../constant/postgres-data-types';
-
-export default function ColumnFieldForm() {
-    const navigate = useNavigate();
+import useCreateEntityStore from '../../store/useCreateEntityStore';
+type props = {
+    setIsColumnDialogOpen:React.Dispatch<React.SetStateAction<boolean>>
+}
+export default function ColumnFieldForm({setIsColumnDialogOpen}:props) {
+    const addColumn = useCreateEntityStore(state=>state.addColumn);
     const form = useForm<ColumnDataFormType>({
         resolver: zodResolver(validateColumnData),
         defaultValues: {
-            name: '',
-            type: 'int',
+            column_name: '',
+            data_type: 'int',
             is_unique: false,
-            is_primary: false,
-            can_null: false,
-            default: '',
+            is_primary_key: false,
+            is_nullable: false,
+            column_default: '',
             is_default: false,
         }
     });
-    const onSubmit = () => {
+    const onSubmit = (data:ColumnDataFormType) => {
+        const res = addColumn(data);
+        if(!res) return;
+        setIsColumnDialogOpen(false);
     };
     return (
         <Form {...form}>
@@ -48,11 +53,11 @@ export default function ColumnFieldForm() {
                 <div className="space-y-[24px]">
                     <FormField
                         control={form.control}
-                        name="name"
+                        name="column_name"
                         render={({ field }) => (
                             <FormItem>
                                 <FormControl>
-                                    <Input placeholder="Enter Column Name" {...field} />
+                                    <Input type='text' placeholder="Enter Column Name" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -60,9 +65,9 @@ export default function ColumnFieldForm() {
                     />
                     <FormField
                         control={form.control}
-                        name="type"
+                        name="data_type"
                         render={() => (
-                            <Select onValueChange={value=>form.setValue('type', value)}>
+                            <Select onValueChange={value=>form.setValue('data_type', value)}>
                                 <SelectTrigger className="w-full bg-white">
                                     <SelectValue placeholder="Select Data type" />
                                 </SelectTrigger>
@@ -87,7 +92,7 @@ export default function ColumnFieldForm() {
                                             <Label>
                                                 Unique
                                             </Label>
-                                            <Input type="checkbox" disabled={form.watch('is_primary') || form.watch('is_default') || form.watch('can_null')} value={String(field.value)} onChange={() => form.setValue('is_unique', !field.value)} />
+                                            <Input type="checkbox" disabled={form.watch('is_primary_key') || form.watch('is_default') || form.watch('is_nullable')} value={String(field.value)} onChange={() => form.setValue('is_unique', !field.value)} />
                                         </div>
                                     </FormControl>
                                     <FormMessage />
@@ -96,7 +101,7 @@ export default function ColumnFieldForm() {
                         />
                         <FormField
                             control={form.control}
-                            name="is_primary"
+                            name="is_primary_key"
                             render={({ field }) => (
                                 <FormItem className='w-full'>
                                     <FormControl >
@@ -104,7 +109,7 @@ export default function ColumnFieldForm() {
                                             <Label>
                                                 Primary
                                             </Label>
-                                            <Input type="checkbox" value={String(field.value)} disabled={form.watch('is_unique') || form.watch('is_default') || form.watch('can_null')} onChange={() => form.setValue('is_primary', !field.value)} />
+                                            <Input type="checkbox" value={String(field.value)} disabled={form.watch('is_unique') || form.watch('is_default') || form.watch('is_nullable')} onChange={() => form.setValue('is_primary_key', !field.value)} />
                                         </div>
                                     </FormControl>
                                     <FormMessage />
@@ -115,7 +120,7 @@ export default function ColumnFieldForm() {
                     <div className='flex items-center justify-between w-full'>
                         <FormField
                             control={form.control}
-                            name="can_null"
+                            name="is_nullable"
                             render={({ field }) => (
                                 <FormItem className='w-full'>
                                     <FormControl >
@@ -123,7 +128,7 @@ export default function ColumnFieldForm() {
                                             <Label>
                                                 NULL
                                             </Label>
-                                            <Input type="checkbox" disabled={form.watch('is_primary') || form.watch('is_unique') || form.watch('is_default')} value={String(field.value)} onChange={() => form.setValue('can_null', !field.value)} />
+                                            <Input type="checkbox" disabled={form.watch('is_primary_key') || form.watch('is_unique') || form.watch('is_default')} value={String(field.value)} onChange={() => form.setValue('is_nullable', !field.value)} />
                                         </div>
                                     </FormControl>
                                     <FormMessage />
@@ -141,7 +146,7 @@ export default function ColumnFieldForm() {
                                                 <Label>
                                                     Default
                                                 </Label>
-                                                <Input type="checkbox" value={String(field.value)} disabled={form.watch('is_primary') || form.watch('is_unique') || form.watch('can_null')} onChange={() => form.setValue('is_default', !field.value)} />
+                                                <Input type="checkbox" value={String(field.value)} disabled={form.watch('is_primary_key') || form.watch('is_unique') || form.watch('is_nullable')} onChange={() => form.setValue('is_default', !field.value)} />
                                             </div>
                                         </FormControl>
                                         <FormMessage />
@@ -153,7 +158,7 @@ export default function ColumnFieldForm() {
                     </div>
                     {form.watch('is_default') === true && <FormField
                         control={form.control}
-                        name="default"
+                        name="column_default"
                         render={({ field }) => (
                             <FormItem>
                                 <FormControl>
@@ -169,7 +174,7 @@ export default function ColumnFieldForm() {
                     className="w-full"
                     variant={'filled'}
                 >
-                    Submit
+                    Add Column
                 </Button>
             </form>
         </Form>

@@ -2,14 +2,14 @@ import useFetch from "../hooks/useFetch";
 import config from "../config";
 import type {Tables} from '../../types'
 import EntityDetailsTable from "../components/entity/entity-details-table";
-import { AddEntityDialog } from "../components/entity/add-entity-dialog";
+import { CreateEntityDialog } from "../components/entity/create-entity-dialog";
 export default function HomePage(){
-    const {data, loading, error} = useFetch<Tables>({url:config.serverUrl+'/entity', defaultValues:{}});
+    const {data, loading,setData, error} = useFetch<Tables>({url:config.serverUrl+'/entity', defaultValues:{}});
     return (
         <div className="p-[54px] flex flex-col gap-5">
             <div className="flex justify-between items-center">
                 <h1 className="text-[56px] font-[500]">Entities</h1>
-                <AddEntityDialog/>
+                <CreateEntityDialog setData={setData}/>
             </div>
             <span className="text-[18px] text-gray-800 font-[500]">Below is the list of all the entities present in the database</span>
             {
