@@ -45,7 +45,7 @@ export default async function GET(_: Request, res: Response) {
             if(!tables[table_name]) tables[table_name] = [];
             tables[table_name].push(columnData);
         });
-        return res.status(200).json({ isError: false, message: 'All entity', data: tables })
+        return res.status(200).json(tables)
     } catch (error: any) {
         return res.status(500).json({ isError: true, message: error.message });
 
