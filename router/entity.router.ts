@@ -2,8 +2,10 @@ import { Router } from "express";
 import CreateEntity from "../controller/entity/create/route";
 import InsertIntoEntity from '../controller/entity/insert/route';
 import GetAllEntity from '../controller/entity/route';
+import DropEntity from '../controller/entity/drop/route';
 const entityRouter = Router();
 entityRouter.post('/create', CreateEntity);
 entityRouter.post('/insert', InsertIntoEntity);
-entityRouter.get('/', GetAllEntity)
+entityRouter.put('/drop', DropEntity);
+entityRouter.get('/', GetAllEntity);
 export default entityRouter;
