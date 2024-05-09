@@ -3,6 +3,8 @@ import config from "../config";
 import type {Tables} from '../../types'
 import EntityDetailsTable from "../components/entity/entity-details-table";
 import { CreateEntityDialog } from "../components/entity/create-entity-dialog";
+import { Link } from "react-router-dom";
+import DropEntityDialog from "../components/entity/drop-entity-dialog";
 export default function HomePage(){
     const {data, loading,setData, error} = useFetch<Tables>({url:config.serverUrl+'/entity', defaultValues:{}});
     return (
@@ -20,7 +22,13 @@ export default function HomePage(){
                     const table_data = data[table_name];
                     return (
                         <div key={table_name} className="flex flex-col gap-4 border-2 p-[12px] rounded-xl">
+                            <div className="flex items-center justify-between">
                             <span className="text-[24px] font-[500]">{table_name}</span>
+                            <div className="flex gap-2 items-center">
+                               <Link to={`/entity/${table_name}`} className="border-2 p-2 rounded-full font-[500] border-blue-600 hover:bg-blue-600 hover:text-white text-blue-600">Explore</Link>
+                               <DropEntityDialog entity_name={table_name}/>
+                            </div>
+                            </div>
                             <EntityDetailsTable data={table_data} />
                         </div>
                     )
