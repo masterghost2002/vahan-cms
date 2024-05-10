@@ -4,7 +4,6 @@ FROM node:20-alpine AS express-builder
 # Set working directory
 WORKDIR /app
 COPY ./package.json ./yarn.lock ./
-COPY /prisma ./prisma
 RUN npm install
 COPY . .
 RUN npm run build
