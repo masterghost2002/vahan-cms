@@ -1,5 +1,5 @@
-import { VALIDATE_INSERT_DATA_QUERY_SCHEMA_TYPE } from "../../../../types";
-export default function buildInsertDataQuery(data:VALIDATE_INSERT_DATA_QUERY_SCHEMA_TYPE){
+import { ValidateUpdateQueryType } from "./validate.query";
+export default function buildUpdateDataQuery(data:ValidateUpdateQueryType){
     let query = `UPDATE ${data.table_name} \nSET `;
     const data_to_update = data.data;
     const length = data_to_update.length;
