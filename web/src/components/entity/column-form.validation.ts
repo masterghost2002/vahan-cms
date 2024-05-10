@@ -8,7 +8,7 @@ const validateColumnData = z.object({
     column_default: z.string().optional(),
     character_maximum_length:z.number().optional(),
     is_default:z.boolean().default(false)
-}).refine(data => {
+}).refine(data=> {
     if (data.is_primary_key && data.is_nullable) {
         throw new Error("Primary key cannot be nullable");
     }

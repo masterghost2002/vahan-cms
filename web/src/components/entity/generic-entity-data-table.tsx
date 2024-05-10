@@ -1,6 +1,4 @@
-import { Edit } from "lucide-react";
 import { GenericEntityDataType } from "../../../types"
-import { Button } from "../ui/button";
 import DropEntityColumnDialog from "./drop-entity-dcolumn-dialog";
 import dataTypeIdToDataType from "../../constant/datatype-id-to-datatype";
 import AddEditEntityRowDataDialog from "./add-edit-entity-row-data-dialog";
