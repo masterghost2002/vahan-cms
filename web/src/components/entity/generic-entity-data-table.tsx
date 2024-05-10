@@ -3,6 +3,7 @@ import { GenericEntityDataType } from "../../../types"
 import { Button } from "../ui/button";
 import DropEntityColumnDialog from "./drop-entity-dcolumn-dialog";
 import dataTypeIdToDataType from "../../constant/datatype-id-to-datatype";
+import AddEditEntityRowDataDialog from "./add-edit-entity-row-data-dialog";
 type props = {
     data: GenericEntityDataType;
     entity_name:string;
@@ -39,9 +40,7 @@ export default function GenericEntityDataTable({ data, entity_name, setData }: p
                             }
                             <td className="border border-gray-300 p-2 font-[500]">
                                 <div className="flex gap-1 items-center justify-between">
-                                    <Button className="m-0 p-0  ">
-                                        <Edit size={16}/>
-                                    </Button>
+                                    <AddEditEntityRowDataDialog setData={setData} entity_name={entity_name} primary_key={data.primaryKey} fields={data.fields} defaultValues={rowData} type="EDIT"/>
                                     <DropEntityColumnDialog setData={setData} entity_name={entity_name} primary_key={data.primaryKey} primary_key_value={rowData[data.primaryKey]}/>
                                 </div>
                             </td>
