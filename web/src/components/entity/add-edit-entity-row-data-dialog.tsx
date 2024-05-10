@@ -52,7 +52,7 @@ export default function AddEditEntityRowDataDialog({primary_key,entity_name,setD
             else {
                 setData(prev=>{
                     const temp = {...prev};
-                    const index = temp.rows.indexOf((data:Record<string, any>)=>data[primary_key] === rowData[primary_key]);
+                    const index = temp.rows.findIndex((data:Record<string, any>)=>data[primary_key] == rowData[primary_key]);
                     if(index === -1) return prev;
                     const rows = [...temp.rows];
                     rows[index] = rowData;
@@ -66,6 +66,7 @@ export default function AddEditEntityRowDataDialog({primary_key,entity_name,setD
             console.log(error);
             if(axios.isAxiosError(error)){
                 const axiosError = error as AxiosError
+                // @ts-ignore
                 const errMessage = axiosError?.response?.data?.message;
                 setError(errMessage);
             }
