@@ -16,12 +16,10 @@ import { Trash2 } from "lucide-react";
 import axios from "axios";
 import config from "../../config";
 import toast from "react-hot-toast";
-import { Tables } from "../../../types";
-type props = {
-  setData:React.Dispatch<React.SetStateAction<Tables>>
-}
+import useEntityDataStore from "../../store/useEntityDataStore";
 const serverUrl = config.serverUrl;
-export function CreateEntityDialog({setData}:props) {
+export function CreateEntityDialog() {
+  const addTable = useEntityDataStore(state=>state.addTable)
   const columns = useCreateEntityStore(state => state.columns);
   const name = useCreateEntityStore(state => state.name);
   const setName = useCreateEntityStore(state => state.setName);
@@ -45,11 +43,8 @@ export function CreateEntityDialog({setData}:props) {
       await axios.post(serverUrl + '/entity/create', { table_name:name, columns });
       toast.remove(id);
       toast.success('Entity Created');
-      setData((prev=>{
-        const _temp = {...prev};
-        _temp[name] = columns;
-        return _temp;
-      }))
+      //@ts-ignore
+      addTable({entity_name:name, data:columns})
     } catch (error) {
       console.log(error);
       toast.remove(id);
