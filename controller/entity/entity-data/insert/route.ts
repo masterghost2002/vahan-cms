@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import getDB from "../../../db";
+import getDB from "../../../../db";
 import validateInsertQuery from "./validate.query";
 import buildInsertDataQuery from "./build-insert-data-query";
 export default async function POST(req:Request, res:Response){

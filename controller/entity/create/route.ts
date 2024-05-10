@@ -2,13 +2,6 @@ import { Request, Response } from "express";
 import getDB from "../../../db";
 import validateCreateTableQuery from "./validate.query";
 import buildCreateTableQuery from "./build-create-table-query";
-const base_create_table_query = `
-      CREATE TABLE IF NOT EXISTS users (
-        id SERIAL PRIMARY    KEY,
-        username VARCHAR(50) UNIQUE    NOT NULL,
-        email VARCHAR(100) UNIQUE NOT    NULL
-      )
-    `
 export default async function POST(req: Request, res: Response) {
     const data = req.body;
     try {

@@ -1,4 +1,4 @@
-import { VALIDATE_INSERT_DATA_QUERY_SCHEMA_TYPE } from "../../../types";
+import { VALIDATE_INSERT_DATA_QUERY_SCHEMA_TYPE } from "../../../../types";
 export default function buildInsertDataQuery(data:VALIDATE_INSERT_DATA_QUERY_SCHEMA_TYPE){
     let query = `INSERT INTO ${data.table_name} (`;
     const values:Array<string> = [];
