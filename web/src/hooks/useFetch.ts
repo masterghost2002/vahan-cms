@@ -1,6 +1,7 @@
 import {useEffect, useState, useRef } from "react";
 import toast from "react-hot-toast";
 import { createAxiosInstance } from "../utils/axios-instance";
+// hooks to fetch the data of with generic data type support
 type props<T> = {
     url:string,
     defaultValues:T
@@ -9,6 +10,7 @@ const useFetch = <T>({url, defaultValues}:props<T>) => {
     const [data, setData] = useState<T>(defaultValues);
     const [error, setError] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
+    // help to aboard the request during page refersh to page cancel
     const abortRef = useRef<AbortController | null>(null);
     useEffect(() => {
         const fetchData = async () => {

@@ -1,3 +1,8 @@
+/*
+
+    As the data of the entity will differ , so, this generic entity table will render the data of the entity
+    This support n number of heading and m number of rows each row with n column
+*/
 import { GenericEntityDataType } from "../../../types"
 import DropEntityColumnDialog from "./drop-entity-dcolumn-dialog";
 import dataTypeIdToDataType from "../../constant/datatype-id-to-datatype";

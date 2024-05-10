@@ -1,5 +1,12 @@
 import { DeleteRowQueryType } from "./validate.query";
-
+/*
+    this function will  build the sql query with the help of the data validate by the zod validator
+    it will return a string ex:
+    DELETE FROM person 
+    WHERE id = 1
+    this query will be used to drop the row from the given entity
+    
+*/
 export default function buildDeleteRowQuery(data:DeleteRowQueryType){
     let query = `DELETE FROM ${data.table_name} \n WHERE `;
     const where_conditions = data.where_conditions;

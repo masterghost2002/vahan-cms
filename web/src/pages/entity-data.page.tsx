@@ -9,11 +9,18 @@ export default function EntityDataPage() {
     const params = useParams();
     const entity_name = params.entityName;
     const { data, error, loading, setData } = useFetch<GenericEntityDataType>({ url: serverUrl + '/entity/entity-data/' + entity_name, defaultValues: { primaryKey: '', total: 0, rows: [], fields: [] } });
+    // if no entity_name is provided show the message
     if (!entity_name)
         return <div>Please provider valid entity name</div>
+
+    // show the loader till the useFetch is fetching the data from the server
     if (loading)
         return <div>Loading Data please wait</div>
+
+    // if there is an error show the error to the user
     if (error) return <div className="text-red-400">{error}</div>
+
+    //if everthing went correct show all the data of the entity
     return <div className="p-[54px] flex flex-col gap-5">
         <div className="flex items-center justify-between">
             <span className="text-[32px] font-[600]">{entity_name}</span>

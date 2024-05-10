@@ -1,3 +1,6 @@
+/*
+    file is responsible for handling all the routes realted to entity
+*/
 import { Router } from "express";
 import CreateEntity from "../controller/entity/create/route";
 import UpdateEntityData from "../controller/entity/entity-data/update/route"

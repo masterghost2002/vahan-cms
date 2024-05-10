@@ -1,3 +1,7 @@
+/*
+    Validate the data coming from the frontend for creating a new entity.
+    Only field mentioned in the schema are accpeted
+*/
 import * as z from 'zod';
 const columnSchema = z.object({
     column_name: z.string(),
@@ -8,12 +12,15 @@ const columnSchema = z.object({
     column_default: z.string().optional(),
     character_maximum_length:z.number().optional()
 }).refine(data => {
+    // basic check a PK can't be null
     if (data.is_primary_key && data.is_nullable) {
         throw new Error("Primary key cannot be nullable");
     }
+    // if the given column is unique it can't be null
     if (data.is_unique && data.is_nullable) {
         throw new Error("Unique key cannot be nullable");
     }
+    // if the given column is pk it can't be unique
     if (data.is_primary_key && data.is_unique) {
         throw new Error("Column cannot be both primary and unique");
     }
@@ -22,7 +29,7 @@ const columnSchema = z.object({
     }
     return true;
 });
-
+// table_name refers to entity name
 const validateCreateTableQuery = z.object({
     table_name:z.string().regex(/^[a-zA-Z0-9_]{1,63}$/),
     columns:z.array(columnSchema)

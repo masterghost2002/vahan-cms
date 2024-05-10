@@ -8,7 +8,10 @@ import DropEntityDialog from "../components/entity/drop-entity-dialog";
 import useEntityDataStore from "../store/useEntityDataStore";
 import { useEffect } from "react";
 export default function HomePage(){
+    // fetch all the entity from the server
     const {data, loading, error} = useFetch<Tables>({url:config.serverUrl+'/entity', defaultValues:{}});
+
+    // set the data in the store
     const {tables, setTables} = useEntityDataStore(state=>state)
     useEffect(()=>{
         if(!data || loading || error) return;
@@ -25,6 +28,8 @@ export default function HomePage(){
             {
                 loading && <div>Fetching the data Please wait ! </div>
             }
+
+            {/* map all the tables along with drop and explore button */}
             {
                 tables && Object.keys(tables).map((table_name:string)=>{
                     const table_data = tables[table_name];
