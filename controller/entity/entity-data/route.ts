@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import getDB from "../../../db";
 export default async function GET(req:Request, res:Response){
-    let entity_name = req.body.entity_name;
+    let entity_name = req.params.entity_name;
     if(!entity_name || typeof entity_name !== 'string')
         return res.status(400).json({isError:true, message:'Invalid entity name', data:{}});
     try {

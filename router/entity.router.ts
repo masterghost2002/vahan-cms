@@ -11,5 +11,5 @@ entityRouter.post('/insert', InsertIntoEntity);
 entityRouter.put('/drop', DropEntity);
 entityRouter.delete('/delete-column', DeleteRowFromEntity);
 entityRouter.get('/', GetAllEntity);
-entityRouter.get('/entity-data', AllDataFromEntity);
+entityRouter.get('/entity-data/:entity_name', AllDataFromEntity);
 export default entityRouter;
